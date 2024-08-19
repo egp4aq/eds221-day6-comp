@@ -64,3 +64,18 @@ wb_co2_tons <- wb_data_tidy %>%
 co2_total <- wb_data_tidy %>%
   group_by(country) %>%
   summarize(total_co2_kt = sum(co2_emissions_kt, na.rm=TRUE))
+
+# filtering using %in%
+us_ca_data <- wb_data_tidy %>%
+  filter(country %in% c("United States", "Canada")) # looking for any countries in this vector we are passing
+
+data_2020 <- wb_data_tidy %>%
+  filter(year == 2020)
+
+co2_annual <- wb_data_tidy %>%
+  group_by(year) %>%
+  summarize(annual_total_co2_kt = sum(co2_emissions_kt, na.rm=TRUE))
+
+ggplot(data = co2_annual, aes(x = year, y = annual_total_co2_kt)) +
+  geom_line()
+
